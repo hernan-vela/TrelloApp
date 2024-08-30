@@ -40,6 +40,7 @@ def login_user():
     body_data = request.get_json()
     # Find the user in DB with that email address
     stmt = db.select(User).filter_by(email=body_data.get("email"))
+    
     user = db.session.scalar(stmt)
     # If user exists and pw is correct
     if user and bcrypt.check_password_hash(user.password, body_data.get("password")):

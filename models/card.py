@@ -14,6 +14,7 @@ class Card(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable = False)
 
     user = db.relationship('User', back_populates='cards')
+    comments = db.relationship("Comment", back_populates="card")
 
 
 class CardSchema(ma.Schema):

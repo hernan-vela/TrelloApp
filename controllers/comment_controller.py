@@ -7,7 +7,7 @@ from init import db
 from models.comment import Comment, comment_schema, comments_schema
 from models.card import Card
 
-comments_bp = Blueprint("comments", __name__, prefix="/<int:card_id>/comments")
+comments_bp = Blueprint("comments", __name__, url_prefix="/<int:card_id>/comments")
 
 # /card_id/comments/ - GET - no need to define
 
@@ -29,7 +29,7 @@ def create_comment():
             card = card,
             user_id = get_jwt_identity()
         )
-        # add anc commit the session
+        # add and commit the session
         db.session.add(comment)
         db.session.commit()
         # return acknowledgement
@@ -79,4 +79,4 @@ def update_comment(card_id, comment_id):
     # else:
     else:
         # return error message
-        return {"error": f"comment with id {coment_id} not found."}, 404
+        return {"error": f"comment with id {comment_id} not found."}, 404
